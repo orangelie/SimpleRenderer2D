@@ -2,6 +2,7 @@
 
 class IGameInterface;
 class Shader;
+class Camera;
 
 class RenderEngine
 {
@@ -14,7 +15,10 @@ public:
 
 	ComPtr<ID3D11Device> GetDevice() { return _device; }
 	ComPtr<ID3D11DeviceContext> GetDeviceContext() { return _deviceContext; }
+	
 	shared_ptr<Shader> GetShader() { return _shader; }
+	shared_ptr<Camera> GetCamera() { return _camera; }
+
 	int GetWidth() { return _w; }
 	int GetHeight() { return _h; }
 
@@ -22,6 +26,7 @@ private:
 	void InitializeD3D11();
 	void CreateRenderTargetView();
 	void CleanupRenderTargetView();
+	void CreateRenderDSView();
 
 private:
 	HINSTANCE _hInst = nullptr;
@@ -45,5 +50,6 @@ private:
 
 private:
 	shared_ptr<Shader> _shader = nullptr;
+	shared_ptr<Camera> _camera = nullptr;
 
 };

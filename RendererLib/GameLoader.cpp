@@ -60,17 +60,6 @@ void GameLoader::Run()
         if (msg.message == WM_QUIT)
             break;
 
-        // IMGUI DPI Á¶Á¤
-        /*{
-            RECT rect;
-            GetClientRect(_hWnd, &rect);
-
-            ImGuiIO& io = ImGui::GetIO();
-            io.DisplaySize = ImVec2(
-                static_cast<float>(rect.right - rect.left),
-                static_cast<float>(rect.bottom - rect.top));
-        }*/
-
         TIMER->Update();
         INPUT->Update();
 

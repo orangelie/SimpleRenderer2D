@@ -2,6 +2,7 @@
 #include "RenderEngine.h"
 #include "IGameInterface.h"
 #include "Shader.h"
+#include "Camera.h"
 
 void RenderEngine::Start(HINSTANCE hInst, HWND hwnd, int w, int h, shared_ptr<IGameInterface> game)
 {
@@ -29,6 +30,9 @@ void RenderEngine::Start(HINSTANCE hInst, HWND hwnd, int w, int h, shared_ptr<IG
 	{
 		_shader = make_shared<Shader>();
 		_shader->Start();
+
+		_camera = make_shared<Camera>();
+		_camera->Start();
 	}
 
 	game->Init(hInst, hwnd);
@@ -55,6 +59,7 @@ void RenderEngine::Render()
 	// CUSTOM
 	ImGui::Begin("UI");
 	_shader->Render();
+	_camera->Render();
 	_game->Render();
 	ImGui::End();
 
@@ -70,16 +75,20 @@ void RenderEngine::Render()
 
 void RenderEngine::ResizeBuffer(uint32 width, uint32 height)
 {
-	// º¸·ù
 	if (DEVICE != nullptr)
 	{
+		// SETUP
+		_w = width;
+		_h = height;
+
 		// RTV
 		_deviceContext->OMSetRenderTargets(0, nullptr, nullptr);
 		_deviceContext->Flush();
-		//CleanupRenderTargetView();
+		CleanupRenderTargetView();
 
 		_swapChain->ResizeBuffers(0, width, height, DXGI_FORMAT_UNKNOWN, 0);
 		CreateRenderTargetView();
+		CreateRenderDSView();
 
 		// VIEWPORT
 		_viewport.Width = static_cast<float>(width);
@@ -88,11 +97,9 @@ void RenderEngine::ResizeBuffer(uint32 width, uint32 height)
 		// IMGUI
 		ImGuiIO& io = ImGui::GetIO();
 		io.DisplaySize = ImVec2((float)width, (float)height);
-		io.DisplayFramebufferScale = ImVec2(1.0f, 1.0f);
+		io.DisplayFramebufferScale = ImVec2(1.0F, 1.0F);
 
-		// SETUP
-		_w = width;
-		_h = height;
+		_deviceContext->OMSetRenderTargets(1, _renderTargetView.GetAddressOf(), _depthStencilView.Get());
 	}
 }
 
@@ -111,10 +118,10 @@ void RenderEngine::InitializeD3D11()
 		desc.SampleDesc.Count = 1;
 		desc.SampleDesc.Quality = 0;
 		desc.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;
-		desc.BufferCount = 1;
+		desc.BufferCount = 2;
 		desc.OutputWindow = _hWnd;
 		desc.Windowed = TRUE;
-		desc.SwapEffect = DXGI_SWAP_EFFECT_DISCARD;
+		desc.SwapEffect = DXGI_SWAP_EFFECT_FLIP_DISCARD;
 	}
 
 	CHECK(::D3D11CreateDeviceAndSwapChain(
@@ -136,6 +143,32 @@ void RenderEngine::InitializeD3D11()
 	CreateRenderTargetView();
 
 	// DSV
+	CreateRenderDSView();
+
+	_viewport.TopLeftX = 0.0F;
+	_viewport.TopLeftY = 0.0F;
+	_viewport.Width = static_cast<float>(_w);
+	_viewport.Height = static_cast<float>(_h);
+	_viewport.MinDepth = 0.0F;
+	_viewport.MaxDepth = 1.0F;
+}
+
+void RenderEngine::CreateRenderTargetView()
+{
+	ComPtr<ID3D11Texture2D> backBuffer = nullptr;
+	CHECK(_swapChain->GetBuffer(0, __uuidof(ID3D11Texture2D), (void**)backBuffer.GetAddressOf()));
+	CHECK(_device->CreateRenderTargetView(backBuffer.Get(), nullptr, _renderTargetView.GetAddressOf()));
+}
+
+void RenderEngine::CleanupRenderTargetView()
+{
+	_renderTargetView.Reset();
+	_depthStencilView.Reset();
+	_depthStencilTexture.Reset();
+}
+
+void RenderEngine::CreateRenderDSView()
+{
 	{
 		D3D11_TEXTURE2D_DESC desc = {};
 		desc.Width = static_cast<uint32>(_w);
@@ -163,23 +196,4 @@ void RenderEngine::InitializeD3D11()
 		HRESULT hr = DEVICE->CreateDepthStencilView(_depthStencilTexture.Get(), &desc, _depthStencilView.GetAddressOf());
 		CHECK(hr);
 	}
-
-	_viewport.TopLeftX = 0.0F;
-	_viewport.TopLeftY = 0.0F;
-	_viewport.Width = static_cast<float>(_w);
-	_viewport.Height = static_cast<float>(_h);
-	_viewport.MinDepth = 0.0F;
-	_viewport.MaxDepth = 1.0F;
-}
-
-void RenderEngine::CreateRenderTargetView()
-{
-	ComPtr<ID3D11Texture2D> backBuffer = nullptr;
-	CHECK(_swapChain->GetBuffer(0, __uuidof(ID3D11Texture2D), (void**)backBuffer.GetAddressOf()));
-	CHECK(_device->CreateRenderTargetView(backBuffer.Get(), nullptr, _renderTargetView.GetAddressOf()));
-}
-
-void RenderEngine::CleanupRenderTargetView()
-{
-	if (_renderTargetView) { _renderTargetView->Release(); _renderTargetView = nullptr; }
 }

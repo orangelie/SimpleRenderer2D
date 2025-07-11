@@ -1,3 +1,4 @@
+C:\Users\Sang Wo Park\Desktop\Github\SimpleRenderer2D\RendererLib\Camera.cpp;C:\Users\Sang Wo Park\Desktop\Github\SimpleRenderer2D\Renderer\Objects\Debug\Camera.obj
 C:\Users\Sang Wo Park\Desktop\Github\SimpleRenderer2D\RendererLib\GameLoader.cpp;C:\Users\Sang Wo Park\Desktop\Github\SimpleRenderer2D\Renderer\Objects\Debug\GameLoader.obj
 C:\Users\Sang Wo Park\Desktop\Github\SimpleRenderer2D\RendererLib\HelperInclude.cpp;C:\Users\Sang Wo Park\Desktop\Github\SimpleRenderer2D\Renderer\Objects\Debug\HelperInclude.obj
 C:\Users\Sang Wo Park\Desktop\Github\SimpleRenderer2D\RendererLib\IGameInterface.cpp;C:\Users\Sang Wo Park\Desktop\Github\SimpleRenderer2D\Renderer\Objects\Debug\IGameInterface.obj
@@ -16,5 +17,6 @@ C:\Users\Sang Wo Park\Desktop\Github\SimpleRenderer2D\RendererLib\RenderEngine.c
 C:\Users\Sang Wo Park\Desktop\Github\SimpleRenderer2D\RendererLib\RendererLibPch.cpp;C:\Users\Sang Wo Park\Desktop\Github\SimpleRenderer2D\Renderer\Objects\Debug\RendererLibPch.obj
 C:\Users\Sang Wo Park\Desktop\Github\SimpleRenderer2D\RendererLib\Shader.cpp;C:\Users\Sang Wo Park\Desktop\Github\SimpleRenderer2D\Renderer\Objects\Debug\Shader.obj
 C:\Users\Sang Wo Park\Desktop\Github\SimpleRenderer2D\RendererLib\SimpleMath.cpp;C:\Users\Sang Wo Park\Desktop\Github\SimpleRenderer2D\Renderer\Objects\Debug\SimpleMath.obj
-C:\Users\Sang Wo Park\Desktop\Github\SimpleRenderer2D\RendererLib\Sphere.cpp;C:\Users\Sang Wo Park\Desktop\Github\SimpleRenderer2D\Renderer\Objects\Debug\Sphere.obj
+C:\Users\Sang Wo Park\Desktop\Github\SimpleRenderer2D\RendererLib\Circle.cpp;C:\Users\Sang Wo Park\Desktop\Github\SimpleRenderer2D\Renderer\Objects\Debug\Circle.obj
+C:\Users\Sang Wo Park\Desktop\Github\SimpleRenderer2D\RendererLib\Texture.cpp;C:\Users\Sang Wo Park\Desktop\Github\SimpleRenderer2D\Renderer\Objects\Debug\Texture.obj
 C:\Users\Sang Wo Park\Desktop\Github\SimpleRenderer2D\RendererLib\Timer.cpp;C:\Users\Sang Wo Park\Desktop\Github\SimpleRenderer2D\Renderer\Objects\Debug\Timer.obj

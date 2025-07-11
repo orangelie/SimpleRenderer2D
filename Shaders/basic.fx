@@ -1,3 +1,6 @@
+Texture2D Texture : register(t0);
+SamplerState Sampler : register(s0);
+
 cbuffer Data : register(b0)
 {
     row_major matrix World;
@@ -38,7 +41,7 @@ float4 PS(VSOutput input) : SV_TARGET
 
     float alpha = step(maxDist - borderThickness, maxDist - distToCenter.x) * step(maxDist - borderThickness, maxDist - distToCenter.y);
     float4 borderColor = float4(0, 0, 0, 1);
-    float4 fillColor = float4(1, 1, 0, 1);
+    float4 fillColor = Texture.Sample(Sampler, input.uv);
 
     return lerp(borderColor, fillColor, alpha);
 }

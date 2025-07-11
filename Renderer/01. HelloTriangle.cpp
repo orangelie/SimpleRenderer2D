@@ -1,5 +1,9 @@
 #include "pch.h"
 #include "01. HelloTriangle.h"
+#include "Camera.h"
+#include "GameLoader.h"
+#include "RenderEngine.h"
+
 #pragma warning(disable:4996)
 
 void HelloTriangle::Start()
@@ -9,10 +13,11 @@ void HelloTriangle::Start()
 	option.position = { 0.0F, 0.0F };
 	option.size = { 1.0F, 1.0F };
 
-	_obj = make_shared<Geo::Rectangle>();
+	_obj = make_shared<Geo::Circle>();
 	_obj->Start(option);
 
 	_obj->scale = { 32.0F, 32.0F };
+	_obj->SetTexture(TEXTURES::RECT1);
 }
 
 void HelloTriangle::Update(float dt)
@@ -29,9 +34,20 @@ void HelloTriangle::Update(float dt)
 	if (INPUT->GetButton(KEY_TYPE::S))
 		_obj->position -= speed * dt * Vec2(0.0F, 1.0F);
 
+	if (INPUT->GetButton(KEY_TYPE::RIGHT))
+		CAMERA->position += speed * dt * Vec2(1.0F, 0.0F);
+	if (INPUT->GetButton(KEY_TYPE::LEFT))
+		CAMERA->position -= speed * dt * Vec2(1.0F, 0.0F);
+	if (INPUT->GetButton(KEY_TYPE::UP))
+		CAMERA->position += speed * dt * Vec2(0.0F, 1.0F);
+	if (INPUT->GetButton(KEY_TYPE::DOWN))
+		CAMERA->position -= speed * dt * Vec2(0.0F, 1.0F);
+
 	ImGui::Begin("UI");
 	char buf[0x50] = {};
-	sprintf(buf, "Position: (%f, %f)", _obj->position.x, _obj->position.y);
+	sprintf(buf, "Object Position: (%f, %f)", _obj->position.x, _obj->position.y);
+	ImGui::Text(buf);
+	sprintf(buf, "Camera Position: (%f, %f)", CAMERA->position.x, CAMERA->position.y);
 	ImGui::Text(buf);
 	ImGui::End();
 }

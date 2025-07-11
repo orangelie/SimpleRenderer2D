@@ -85,5 +85,7 @@ public:										\
 #define DEVICE		(GET_SINGLE(GameLoader)->GetEngine()->GetDevice())
 #define DC			(GET_SINGLE(GameLoader)->GetEngine()->GetDeviceContext())
 #define SHADER		(GET_SINGLE(GameLoader)->GetEngine()->GetShader())
+#define CAMERA		(GET_SINGLE(GameLoader)->GetEngine()->GetCamera())
+
 #define WIDTH		(GET_SINGLE(GameLoader)->GetEngine()->GetWidth())
 #define HEIGHT		(GET_SINGLE(GameLoader)->GetEngine()->GetHeight())

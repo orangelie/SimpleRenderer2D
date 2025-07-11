@@ -171,6 +171,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Camera.h" />
     <ClInclude Include="GameLoader.h" />
     <ClInclude Include="HelperInclude.h" />
     <ClInclude Include="IGameInterface.h" />
@@ -190,10 +191,12 @@
     <ClInclude Include="RendererLibPch.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="SimpleMath.h" />
-    <ClInclude Include="Sphere.h" />
+    <ClInclude Include="Circle.h" />
+    <ClInclude Include="Texture.h" />
     <ClInclude Include="Timer.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Camera.cpp" />
     <ClCompile Include="GameLoader.cpp" />
     <ClCompile Include="HelperInclude.cpp" />
     <ClCompile Include="IGameInterface.cpp" />
@@ -252,7 +255,8 @@
     <ClCompile Include="RendererLibPch.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="SimpleMath.cpp" />
-    <ClCompile Include="Sphere.cpp" />
+    <ClCompile Include="Circle.cpp" />
+    <ClCompile Include="Texture.cpp" />
     <ClCompile Include="Timer.cpp" />
   </ItemGroup>
   <ItemGroup>

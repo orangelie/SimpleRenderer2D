@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Shader.h"
+#include "Camera.h"
 
 struct GeometryOption
 {
@@ -31,11 +32,15 @@ namespace Geo
 		virtual void Update() = 0;
 		virtual void Render() = 0;
 
+		void SetTexture(TEXTURES texture) { _texId = texture; }
+
 		Vec2 position = {};
 		Vec2 scale = { 1.0F, 1.0F };
 		float rotation = 0.0F; // degrees
 
 	protected:
+		TEXTURES _texId = TEXTURES::RECT1;
+
 		GeometryOption _option;
 
 		ConstantSetting _settings = {};

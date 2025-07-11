@@ -2,9 +2,39 @@
 #include "Shader.h"
 #include "GameLoader.h"
 #include "RenderEngine.h"
+#include "Texture.h"
 
 void Shader::Start()
 {
+    // 몇가지 테스트 텍스쳐 준비
+    {
+        wstring path = L"../Shaders/";
+        wstring filenames[MAX_TEXTURE_COUNT] =
+        { L"rectangle.png", L"rectangle_wood.png", L"sphere.png" };
+        _realTextureCount = _countof(filenames);
+
+        assert(_realTextureCount <= MAX_TEXTURE_COUNT);
+
+        for (int i = 0; i < _realTextureCount; ++i)
+        {
+            _textures[i] = make_shared<Texture>();
+            _textures[i]->LoadTextureFromFile(path + filenames[i]);
+        }
+
+
+        D3D11_SAMPLER_DESC desc = {};
+        desc.Filter = D3D11_FILTER_MIN_MAG_MIP_POINT;
+        desc.AddressU = D3D11_TEXTURE_ADDRESS_WRAP;
+        desc.AddressV = D3D11_TEXTURE_ADDRESS_WRAP;
+        desc.AddressW = D3D11_TEXTURE_ADDRESS_WRAP;
+        desc.MipLODBias = 0.0F;
+        desc.ComparisonFunc = D3D11_COMPARISON_ALWAYS;
+        desc.MinLOD = 0.0F;
+        desc.MaxLOD = 0.0F;
+
+        DEVICE->CreateSamplerState(&desc, _samplerState.GetAddressOf());
+    }
+
     const uint32 compileFlag = D3DCOMPILE_DEBUG | D3DCOMPILE_SKIP_OPTIMIZATION;
     ComPtr<ID3DBlob> vsBlob, psBlob;
     CHECK(D3DCompileFromFile(L"../Shaders/basic.fx", nullptr, D3D_COMPILE_STANDARD_FILE_INCLUDE, "VS", "vs_5_0", compileFlag, 0, &vsBlob, nullptr));
@@ -20,40 +50,32 @@ void Shader::Start()
     };
 
     CHECK(DEVICE->CreateInputLayout(inputLayout, _countof(inputLayout), vsBlob->GetBufferPointer(), vsBlob->GetBufferSize(), _inputLayout.GetAddressOf()));
-
-    // CB
-    D3D11_BUFFER_DESC desc = {};
-    desc.Usage = D3D11_USAGE_DYNAMIC;
-    desc.ByteWidth = sizeof(CPUConstantBuffer);
-    desc.BindFlags = D3D11_BIND_VERTEX_BUFFER;
-    desc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
-
-    CHECK(DEVICE->CreateBuffer(&desc, nullptr, _transformBuffer.GetAddressOf()));
 }
 
 void Shader::Render()
 {
     DC->IASetInputLayout(_inputLayout.Get());
 
-    DC->VSSetShader(_vertexShader.Get(), nullptr, 0);
-    DC->VSSetConstantBuffers(0, 1, _transformBuffer.GetAddressOf());
+    DC->PSSetSamplers(0, 1, _samplerState.GetAddressOf());
 
+    switch (_textureId)
+    {
+    case TEXTURES::RECT1:
+        DC->PSSetShaderResources(0, 1, _textures[0]->GeSRV().GetAddressOf());
+        break;
+    case TEXTURES::RECT2:
+        DC->PSSetShaderResources(0, 1, _textures[1]->GeSRV().GetAddressOf());
+        break;
+    case TEXTURES::CIRCLE:
+        DC->PSSetShaderResources(0, 1, _textures[2]->GeSRV().GetAddressOf());
+        break;
+    }
+
+    DC->VSSetShader(_vertexShader.Get(), nullptr, 0);
     DC->PSSetShader(_pixelShader.Get(), nullptr, 0);
 }
 
-void Shader::PushConstantBuffer(ConstantSetting setting)
+void Shader::PushConstantBuffer()
 {
-    Vec3 camPosition = { 0.0F, 0.0F, -10.0F };
-    const Vec3 focusPosition = camPosition + Vec3(0.0F, 0.0F, 1.0F);
-
-    _view = XMMatrixLookAtLH(camPosition, focusPosition, Vec3::Up);
-    _projection = XMMatrixOrthographicLH(WIDTH, HEIGHT, 0.1F, 100.0F);
-
-    _cpuTransformData.World = setting.World;
-    _cpuTransformData.VP = _view * _projection;
-
-    D3D11_MAPPED_SUBRESOURCE subResource = {};
-    DC->Map(_transformBuffer.Get(), 0, D3D11_MAP_WRITE_DISCARD, 0, &subResource);
-    memcpy(subResource.pData, &_cpuTransformData, sizeof(CPUConstantBuffer));
-    DC->Unmap(_transformBuffer.Get(), 0);
+    
 }

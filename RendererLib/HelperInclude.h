@@ -1,5 +1,5 @@
 #pragma once
 
-#include "Sphere.h"
+#include "Circle.h"
 #include "Rectangle.h"
 #include "IGameInterface.h"

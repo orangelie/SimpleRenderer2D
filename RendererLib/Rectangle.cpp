@@ -3,6 +3,7 @@
 #include "GameLoader.h"
 #include "RenderEngine.h"
 #include "Shader.h"
+#include "Camera.h"
 
 void Geo::Rectangle::Start(GeometryOption option)
 {
@@ -62,13 +63,16 @@ void Geo::Rectangle::Update()
 
 	_settings.World = matScale * matRotation * matTranslation;
 
-	SHADER->PushConstantBuffer(_settings);
+	SHADER->PushConstantBuffer();
+	CAMERA->PushConstantBuffer(_settings);
 }
 
 void Geo::Rectangle::Render()
 {
 	uint32 stride = sizeof(CPUVertexData);
 	uint32 offset = 0;
+
+	SHADER->SetTexture(_texId);
 
 	DC->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 	DC->IASetVertexBuffers(0, 1, _vertexBuffer.GetAddressOf(), &stride, &offset);

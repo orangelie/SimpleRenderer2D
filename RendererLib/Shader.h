@@ -1,32 +1,41 @@
 #pragma once
 
-struct ConstantSetting
+class Texture;
+
+enum class TEXTURES : int32
 {
-	Matrix World;
+	RECT1 = 0,
+	RECT2,
+	CIRCLE,
 };
 
 class Shader
 {
 private:
-	struct CPUConstantBuffer
+	struct ShaderConstant
 	{
-		Matrix World;
-		Matrix VP;
+
 	};
 
 public:
 	void Start();
 	void Render();
 
-	void PushConstantBuffer(ConstantSetting setting);
+	void PushConstantBuffer();
+	void SetTexture(TEXTURES texture) { _textureId = texture; }
 
 private:
 	ComPtr<ID3D11InputLayout> _inputLayout = nullptr;
 	ComPtr<ID3D11VertexShader> _vertexShader = nullptr;
 	ComPtr<ID3D11PixelShader> _pixelShader = nullptr;
 
-	ComPtr<ID3D11Buffer> _transformBuffer = nullptr;
-	CPUConstantBuffer _cpuTransformData = {};
-	Matrix _view, _projection;
+private:
+	// Texture
+	static constexpr int MAX_TEXTURE_COUNT = 3;
+	shared_ptr<Texture> _textures[MAX_TEXTURE_COUNT] = {};
+	int _realTextureCount = 0;
+	TEXTURES _textureId = TEXTURES::RECT1;
+
+	ComPtr<ID3D11SamplerState> _samplerState = nullptr;
 
 };

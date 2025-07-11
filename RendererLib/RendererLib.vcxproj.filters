@@ -18,10 +18,10 @@
     <Filter Include="Geometry">
       <UniqueIdentifier>{b13aec18-4ff2-46ca-9588-dbf69d2b39cb}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Shader">
+    <Filter Include="ShaderParameter">
       <UniqueIdentifier>{9854d314-cb15-4e32-9570-4a570a3b6ee2}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Shader\Scripts">
+    <Filter Include="ShaderParameter\Scripts">
       <UniqueIdentifier>{bef51864-ab51-4240-bf8d-cf6444822f40}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -74,7 +74,7 @@
     <ClInclude Include="RenderEngine.h">
       <Filter>GameLoader</Filter>
     </ClInclude>
-    <ClInclude Include="Sphere.h">
+    <ClInclude Include="Circle.h">
       <Filter>Geometry</Filter>
     </ClInclude>
     <ClInclude Include="Rectangle.h">
@@ -87,7 +87,13 @@
       <Filter>Utils</Filter>
     </ClInclude>
     <ClInclude Include="Shader.h">
-      <Filter>Shader</Filter>
+      <Filter>ShaderParameter</Filter>
+    </ClInclude>
+    <ClInclude Include="Texture.h">
+      <Filter>ShaderParameter</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera.h">
+      <Filter>ShaderParameter</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -136,7 +142,7 @@
     <ClCompile Include="RenderEngine.cpp">
       <Filter>GameLoader</Filter>
     </ClCompile>
-    <ClCompile Include="Sphere.cpp">
+    <ClCompile Include="Circle.cpp">
       <Filter>Geometry</Filter>
     </ClCompile>
     <ClCompile Include="IGeometry.cpp">
@@ -149,7 +155,13 @@
       <Filter>Utils</Filter>
     </ClCompile>
     <ClCompile Include="Shader.cpp">
-      <Filter>Shader</Filter>
+      <Filter>ShaderParameter</Filter>
+    </ClCompile>
+    <ClCompile Include="Texture.cpp">
+      <Filter>ShaderParameter</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera.cpp">
+      <Filter>ShaderParameter</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -159,7 +171,7 @@
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="..\Shaders\basic.fx">
-      <Filter>Shader\Scripts</Filter>
+      <Filter>ShaderParameter\Scripts</Filter>
     </FxCompile>
   </ItemGroup>
 </Project>
