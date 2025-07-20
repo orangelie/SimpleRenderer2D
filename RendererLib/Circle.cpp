@@ -6,13 +6,13 @@ void Geo::Circle::Start(GeometryOption option)
 	position = option.position;
 
 	const int sliceCount = 64;
-	const float radius = 1.0f; // [-1, 1] 공간에 꽉 차게
+	const float radius = 1.0F;
 
 	vector<CPUVertexData> vertices;
 	vertices.reserve(sliceCount + 2);
 
 	// 중심점 추가
-	vertices.push_back({ { 0.0f, 0.0f }, { 0.5f, 0.5f } });
+	vertices.push_back({ { 0.0F, 0.0F }, { 0.5F, 0.5F } });
 
 	for (int i = 0; i <= sliceCount; ++i)
 	{
@@ -20,8 +20,8 @@ void Geo::Circle::Start(GeometryOption option)
 		float x = cosf(angle) * radius;
 		float y = -sinf(angle) * radius;
 
-		float u = (x + 1.0f) * 0.5f;  // [-1,1] -> [0,1]
-		float v = (1.0f - y) * 0.5f;  // [-1,1] -> [0,1], Y축 반전
+		float u = (x + 1.0F) * 0.5F;  // [-1,1] -> [0,1]
+		float v = (1.0F - y) * 0.5F;  // [-1,1] -> [0,1], Y축 반전
 
 		vertices.push_back({ { x, y }, { u, v } });
 	}

@@ -12,6 +12,7 @@ C:\Users\Sang Wo Park\Desktop\Github\SimpleRenderer2D\RendererLib\imgui_tables.c
 C:\Users\Sang Wo Park\Desktop\Github\SimpleRenderer2D\RendererLib\imgui_widgets.cpp;C:\Users\Sang Wo Park\Desktop\Github\SimpleRenderer2D\Renderer\Objects\Debug\imgui_widgets.obj
 C:\Users\Sang Wo Park\Desktop\Github\SimpleRenderer2D\RendererLib\Input.cpp;C:\Users\Sang Wo Park\Desktop\Github\SimpleRenderer2D\Renderer\Objects\Debug\Input.obj
 C:\Users\Sang Wo Park\Desktop\Github\SimpleRenderer2D\RendererLib\pch.cpp;C:\Users\Sang Wo Park\Desktop\Github\SimpleRenderer2D\Renderer\Objects\Debug\pch.obj
+C:\Users\Sang Wo Park\Desktop\Github\SimpleRenderer2D\RendererLib\Polygon.cpp;C:\Users\Sang Wo Park\Desktop\Github\SimpleRenderer2D\Renderer\Objects\Debug\Polygon.obj
 C:\Users\Sang Wo Park\Desktop\Github\SimpleRenderer2D\RendererLib\Rectangle.cpp;C:\Users\Sang Wo Park\Desktop\Github\SimpleRenderer2D\Renderer\Objects\Debug\Rectangle.obj
 C:\Users\Sang Wo Park\Desktop\Github\SimpleRenderer2D\RendererLib\RenderEngine.cpp;C:\Users\Sang Wo Park\Desktop\Github\SimpleRenderer2D\Renderer\Objects\Debug\RenderEngine.obj
 C:\Users\Sang Wo Park\Desktop\Github\SimpleRenderer2D\RendererLib\RendererLibPch.cpp;C:\Users\Sang Wo Park\Desktop\Github\SimpleRenderer2D\Renderer\Objects\Debug\RendererLibPch.obj

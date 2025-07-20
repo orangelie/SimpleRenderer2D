@@ -6,6 +6,9 @@
 
 #pragma warning(disable:4996)
 
+// _obj_Update, Render이런걸 렌더러 내부에서 해주도록 바꿔주고, 오브젝트
+// 삭제나 이런건 Destory로 ㄱㄱ
+
 void HelloTriangle::Start()
 {
 	GeometryOption option = {};
@@ -13,7 +16,13 @@ void HelloTriangle::Start()
 	option.position = { 0.0F, 0.0F };
 	option.size = { 1.0F, 1.0F };
 
-	_obj = make_shared<Geo::Circle>();
+	vector<Vec2> pts;
+	{
+		pts.push_back({});
+	}
+
+	_obj = make_shared<Geo::Polygon>();
+	dynamic_cast<Geo::Polygon*>(_obj.get())->SetPoints(pts);
 	_obj->Start(option);
 
 	_obj->scale = { 32.0F, 32.0F };

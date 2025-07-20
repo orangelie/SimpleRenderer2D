@@ -95,6 +95,9 @@
     <ClInclude Include="Camera.h">
       <Filter>ShaderParameter</Filter>
     </ClInclude>
+    <ClInclude Include="Polygon.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -162,6 +165,9 @@
     </ClCompile>
     <ClCompile Include="Camera.cpp">
       <Filter>ShaderParameter</Filter>
+    </ClCompile>
+    <ClCompile Include="Polygon.cpp">
+      <Filter>GameLoader</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
